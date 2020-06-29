@@ -11,25 +11,19 @@
 #include <opencv2/tracking.hpp>
 #include <zbar.h>
 #include <mutex>
+#include "qrbb.hpp"
 
-class Qrbb{
+struct FlightParams{
+    int m_rotate = 0;
+    int m_lr = 0;
+    int m_ud = 0;
+    int m_fb = 0;
+};
+
+class DroneControls{
 public:
-    Qrbb();
-    Qrbb(const float & qrSize, const zbar::Symbol & symbol);
-    Qrbb(const Qrbb & bb);
-private:
-    float qrSizeInCm;
-	cv::Point bl;
-	cv::Point tl;
-	cv::Point tr;
-	cv::Point br;
-public:
-	void draw(cv::Mat & frame) const;
-    float getHorizontalDegree() const;
-    float getVerticalDegree() const;
-    float getDistanceInCm() const;
-    cv::Point getCenter() const;
-    float cmPerPixel() const;
+    DroneControls(const int & lr, const int & fb, const int & ud, const int & rotate);
+    FlightParams m_params;
 };
 
 class Drone{
@@ -41,16 +35,17 @@ class Drone{
     std::thread m_videoThread;
 public:
     std::mutex m_writeMutex;
-    int m_toRotate = 0;
-    int m_toGoUpAndDown = 0;
-    int m_toGoLeftAndRight = 0;
-    int m_toGoForwardAndBackward = 0;
+    float m_toRotate = 0;
+    float m_toGoUpAndDown = 0;
+    float m_toGoLeftAndRight = 0;
+    float m_toGoForwardAndBackward = 0;
+    bool m_valuesSet = false;
 
 public:
     Drone();
     ~Drone();
 private:
-    void executeFunction(const std::string & command);
+    void executeFunction(const std::string & command, const bool & waitForResponse = true);
 public:
     void streamoff();
     void streamon();
@@ -59,5 +54,6 @@ public:
     void land();
     void rotate(const int & rotation);
     void move(const int & fb, const int & lr, const int & ud, const int & speed);
+    void rc(const int & lr, const int & fb, const int & ud, const int & yaw);
 };
 void getVideo(Drone * d);
