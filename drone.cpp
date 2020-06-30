@@ -68,7 +68,7 @@ void getVideo(Drone * d){
   	cv::VideoCapture cap("udp://@0.0.0.0:11111");
 	zbar::ImageScanner scanner;
   	scanner.set_config(zbar::ZBAR_QRCODE, zbar::ZBAR_CFG_ENABLE, 1);
-	int frameSkip = 2;
+	int frameSkip = 3;
 	cv::Mat frame;
 	cv::namedWindow("output");
 	while(true){

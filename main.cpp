@@ -20,7 +20,7 @@ int main()
 {
     signal (SIGINT,my_handler);
     Drone d;
-    //d.takeOff();
+    d.takeOff();
     std::this_thread::sleep_for(std::chrono::seconds(2));
     /*d.rc(0,50,0,0);
     std::this_thread::sleep_for(std::chrono::milliseconds(200));
@@ -76,7 +76,7 @@ int main()
         std::cout << "inp rotation: " << movement[3] << " fb: " << movement[1] << " lr: " << movement[0] << " ud: " << movement[2] << "\n";
 
         std::cout << "\n\n";
-        //d.rc(movement[0], movement[1], movement[2], movement[3]);
+        d.rc(movement[0], movement[1], movement[2], movement[3]);
         lastIteration = std::chrono::steady_clock::now();
 
         //give the camera thread time to write to the drone internal variables, otherwise lock would always be in use by this loop
