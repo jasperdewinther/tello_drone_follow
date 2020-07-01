@@ -13,19 +13,6 @@
 #include <mutex>
 #include "qrbb.hpp"
 
-struct FlightParams{
-    int m_rotate = 0;
-    int m_lr = 0;
-    int m_ud = 0;
-    int m_fb = 0;
-};
-
-class DroneControls{
-public:
-    DroneControls(const int & lr, const int & fb, const int & ud, const int & rotate);
-    FlightParams m_params;
-};
-
 class Drone{
     const sf::IpAddress m_sendIP = sf::IpAddress(192,168,10,1);
     const unsigned short m_sendPort = 8889;
