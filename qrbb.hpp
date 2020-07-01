@@ -9,7 +9,6 @@ class Qrbb{
 public:
     Qrbb();
     Qrbb(const float & qrSize, const zbar::Symbol & symbol);
-    Qrbb(const Qrbb & bb);
 private:
     float qrSizeInCm;
 	cv::Point bl;
@@ -19,7 +18,6 @@ private:
 public:
 	void draw(cv::Mat & frame) const;
     float getHorizontalDegree() const;
-    float getVerticalDegree() const;
     float getDistanceInCm() const;
     cv::Point getCenter() const;
     float cmPerPixel() const;
